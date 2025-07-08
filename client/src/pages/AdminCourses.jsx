@@ -15,11 +15,10 @@ export default function AdminCourses() {
   }, []);
 
   return (
-    <div className="course-grid">
-      <h2>My Courses</h2>
-      <button onClick={() => navigate("/admin/courses/create")}>
+    <button onClick={() => navigate("/admin/courses/create")}>
         Add New Course
-      </button>
+    </button>
+    <div className="course-grid">
       {courses.length === 0 && <p>No courses yet. Add your first one!</p>}
       {courses.map((c) => (
         <CourseCard key={c.title} course={c} showEdit isAdmin />
