@@ -122,7 +122,7 @@ export default function App() {
         <Route
           path="*"
           element={
-            token
+            token ? (
               rank === "admin" ? (
                 <Navigate to="/admin/courses" />
               ) : rank === "user" ? (
