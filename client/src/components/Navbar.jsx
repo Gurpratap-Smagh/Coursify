@@ -40,8 +40,9 @@ export default function Navbar() {
               <Link to="/users/purchased">Purchased Courses</Link>
             </>
           )}
-          <button onClick={handleLogout}>Logout</button>
+          
         </div>
+        <button onClick={handleLogout}>Logout</button>
         </>
       )}
     </nav>
