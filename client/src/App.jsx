@@ -124,9 +124,9 @@ export default function App() {
           element={
             token ? (
               rank === "admin" ? (
-                <Navigate to="/admin/courses" />
+                <Navigate to="/login" />
               ) : rank === "user" ? (
-                <Navigate to="/users/courses" />
+                <Navigate to="/login" />
               ) : (
                 <Navigate to="/login" />
               )
