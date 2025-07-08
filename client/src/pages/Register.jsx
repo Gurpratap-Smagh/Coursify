@@ -20,9 +20,10 @@ export default function Register() {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      toast.error(err.response.data);
+      toast.error("signup failed");
     }
   };
+
   return (
     <div className="auth-container">
       <h2>Register</h2>
