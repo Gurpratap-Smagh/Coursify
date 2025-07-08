@@ -20,10 +20,26 @@ export default function Register() {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      if(err.response.error.issues.code)
-      {
-        toast.error(err.response.error.issues.code);
+      try {
+        if (err.response?.data?.error?.issues?.length > 0) {
+          const issues = err.response.data.error.issues;
+          const message = issues
+            .map((issue) => {
+              const field = issue.path?.[0] || "Field";
+              return `${field}: ${issue.message}`;
+            })
+            .join(" ");
+          toast.error(message);
+          return;
+        } else if (err.response?.data?.message) {
+          toast.error(err.response.data.message);
+          return;
+        }
+      } catch (e) {
+        console.error("Error while parsing error object:", e);
       }
+
+ 
       toast.error("signup failed");
     }
   };
