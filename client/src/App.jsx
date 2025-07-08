@@ -123,12 +123,16 @@ export default function App() {
           path="*"
           element={
             token
-              ? rank === "admin"
-                ? <Navigate to="/admin/courses" />
-                : <Navigate to="/login" />
-              ? rank === "user"
-                ? <Navigate to="/users/courses" />
-                : <Navigate to="/login" />
+              rank === "admin" ? (
+                <Navigate to="/admin/courses" />
+              ) : rank === "user" ? (
+                <Navigate to="/users/courses" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
       </Routes>
