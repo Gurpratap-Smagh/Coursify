@@ -20,9 +20,9 @@ export default function Register() {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      if(response.error.issues.code)
+      if(err.response.error.issues.code)
       {
-        toast.error(response.error.issues.code);
+        toast.error(err.response.error.issues.code);
       }
       toast.error("signup failed");
     }
