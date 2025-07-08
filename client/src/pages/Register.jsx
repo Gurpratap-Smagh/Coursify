@@ -11,39 +11,18 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleSignup = async () => {
-  try {
-    await axios.post(
-      role === "admin" ? "/admin/signup" : "/users/signup",
-      { [role === "admin" ? "admin_name" : "user_name"]: username, password }
-    );
-    toast.success("Signup success, login");
-    navigate("/login");
-  } catch (err) {
-    console.error(err);
-
-    let message = "Signup failed";
-
-    // Check if backend sent validation errors
-    if (err.response?.data?.issues?.length > 0) {
-      const issues = err.response.data.issues;
-      // Example: display all issues as a single message
-      message = issues
-        .map((issue) => {
-          if (issue.code === "too_small" && issue.type === "string") {
-            return `Field too short (minimum ${issue.minimum} characters).`;
-          }
-          // Handle other codes/types as needed
-          return issue.message || "Validation error.";
-        })
-        .join(" ");
-    } else if (err.response?.data?.message) {
-      // Fallback to generic message
-      message = err.response.data.message;
+    try {
+      await axios.post(
+        role === "admin" ? "/admin/signup" : "/users/signup",
+        { [role === "admin" ? "admin_name" : "user_name"]: username, password }
+      );
+      toast.success("Signup success, login");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response.data);
     }
-
-    toast.error(message);
-  }
-};
+  };
   return (
     <div className="auth-container">
       <h2>Register</h2>
