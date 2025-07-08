@@ -125,9 +125,10 @@ export default function App() {
             token
               ? rank === "admin"
                 ? <Navigate to="/admin/courses" />
+                : <Navigate to="/login" />
               ? rank === "user"
                 ? <Navigate to="/users/courses" />
-              : <Navigate to="/login" />
+                : <Navigate to="/login" />
           }
         />
       </Routes>
