@@ -46,7 +46,7 @@ export default function Login() {
       <p className="subtext">Log in to access paid content!</p>
 
       <input
-        placeholder="Email"
+        placeholder="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
