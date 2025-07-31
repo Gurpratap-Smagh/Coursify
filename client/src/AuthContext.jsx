@@ -15,7 +15,7 @@ axios.interceptors.request.use((config) => {
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(Cookies.get("token") || null);
-  const [rank, setRank] = useState(Cookies.get("rank") || null);
+  const [rank, setRank] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,15 +46,12 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = (token, rank) => {
-    Cookies.set("token", token);
-    Cookies.set("rank", rank);
-    setToken(token);
+    Cookies.set("token", token, { secure: true, sameSite: 'strict' });
     setRank(rank);
   };
 
   const logout = () => {
     Cookies.remove("token");
-    Cookies.remove("rank");
     setToken(null);
     setRank(null);
   };
