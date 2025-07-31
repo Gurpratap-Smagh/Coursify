@@ -22,11 +22,7 @@ export default function Login() {
 
       login(res.data.token, res.data.rank);
 
-      if (res.data.rank === "admin") {
-        navigate("/admin/courses");
-      } else {
-        navigate("/users/courses");
-      }
+
     } catch (err) {
       if (err.response?.status === 429) {
         toast.error(err.response.data.message);

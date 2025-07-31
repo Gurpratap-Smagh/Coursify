@@ -54,8 +54,14 @@ export default function App() {
 
       <Routes>
         {/* Public pages */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
+        <Route
+          path="/login"
+          element={!token ? <Login /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
+        />
+        <Route
+          path="/signup"
+          element={!token ? <Register /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
+        />
 
         {/* Admin pages (protected) */}
         <Route
