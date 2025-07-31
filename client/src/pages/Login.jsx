@@ -20,8 +20,13 @@ export default function Login() {
         { withCredentials: true }
       );
 
-      login(res.data.token, res.data.rank);
+      await login(res.data.token, res.data.rank);
 
+      if (res.data.rank === "admin") {
+        navigate("/admin/courses");
+      } else {
+        navigate("/users/courses");
+      }
 
     } catch (err) {
       if (err.response?.status === 429) {
@@ -52,7 +57,12 @@ export default function Login() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
+      <select 
+        title="Role"
+        aria-label="Select your role"
+        value={role} 
+        onChange={(e) => setRole(e.target.value)}
+      >
         <option value="user">User</option>
         <option value="admin">Admin</option>
       </select>
