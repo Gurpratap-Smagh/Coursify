@@ -1,20 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
-// Add axios interceptor to include token in headers for cross-origin requests
-axios.interceptors.request.use((config) => {
-  const token = Cookies.get('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// HttpOnly cookies are automatically sent with requests
+// No need for manual Authorization header
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(Cookies.get("token") || null);
+  const [token, setToken] = useState(null); // Don't read httpOnly cookies
   const [rank, setRank] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,13 +39,13 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (token, rank) => {
-    Cookies.set("token", token, { secure: true, sameSite: 'strict' });
+    // Backend already sets httpOnly cookie, just update state
     setToken(token);
     setRank(rank);
   };
 
   const logout = () => {
-    Cookies.remove("token");
+    // Backend will clear httpOnly cookie on logout endpoint
     setToken(null);
     setRank(null);
   };

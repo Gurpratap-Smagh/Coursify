@@ -56,41 +56,73 @@ export default function App() {
         {/* Public pages */}
         <Route
           path="/login"
-          element={!token ? <Login /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
+          element={
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : !token ? (
+              <Login />
+            ) : (
+              <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} replace />
+            )
+          }
         />
         <Route
           path="/signup"
-          element={!token ? <Register /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
+          element={
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : !token ? (
+              <Register />
+            ) : (
+              <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} replace />
+            )
+          }
         />
 
         {/* Admin pages (protected) */}
         <Route
           path="/admin/courses"
           element={
-            token && rank === "admin" ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token && rank === "admin" ? (
               <AdminCourses />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
         <Route
           path="/admin/courses/create"
           element={
-            token && rank === "admin" ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token && rank === "admin" ? (
               <CreateCourse />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
         <Route
           path="/admin/courses/edit/:title"
           element={
-            token && rank === "admin" ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token && rank === "admin" ? (
               <EditCourse />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
@@ -99,30 +131,42 @@ export default function App() {
         <Route
           path="/users/courses"
           element={
-            token && (rank === "user" || rank === "admin") ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token && (rank === "user" || rank === "admin") ? (
               <AllCourses />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
         <Route
           path="/users/purchased"
           element={
-            token && (rank === "user" || rank === "admin") ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token && (rank === "user" || rank === "admin") ? (
               <PurchasedCourses />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
         <Route
           path="/users/courses/:title"
           element={
-            token && (rank === "user" || rank === "admin") ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token && (rank === "user" || rank === "admin") ? (
               <CourseDetails />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
@@ -131,14 +175,18 @@ export default function App() {
         <Route
           path="*"
           element={
-            token ? (
+            loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Loading...</p>
+              </div>
+            ) : token ? (
               rank === "admin" ? (
-                <Navigate to="/admin/courses" />
+                <Navigate to="/admin/courses" replace />
               ) : (
-                <Navigate to="/users/courses" />
+                <Navigate to="/users/courses" replace />
               )
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
