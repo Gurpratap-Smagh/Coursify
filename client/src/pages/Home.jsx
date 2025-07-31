@@ -1,38 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Courses from "../components/Courses";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../AuthContext";
 
 
 function Home() {
   const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
       return;
     }
     axios
-      .get("http://localhost:8000/users/courses", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get("/users/courses", { withCredentials: true })
       .then((res) => setCourses(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [token, navigate]);
 
   const handleBuy = (title) => {
-    const token = localStorage.getItem("token");
     axios
-      .post(`http://localhost:8000/users/courses/${title}`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`/users/courses/${title}`, {}, { withCredentials: true })
       .then(() => toast.success("course purchased"))
       .catch(() => toast.error("Failed to buy course"))
   };
