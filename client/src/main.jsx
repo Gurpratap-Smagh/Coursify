@@ -5,7 +5,7 @@ import './styles.css';
 import axios from 'axios';
 import { AuthProvider } from './AuthContext.jsx';
 
-axios.defaults.baseURL = "https://coursify-bcdxe5enb5b9g3gb.canadacentral-01.azurewebsites.net";
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
