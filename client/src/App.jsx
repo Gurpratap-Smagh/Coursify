@@ -14,28 +14,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
-
-export default function WildcardRedirect() {
-  const { token, rank, logout } = useContext(AuthContext);
-
-
-
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-
-  if (rank === 'admin') {
-    return <Navigate to="/admin/courses" />;
-  }
-
-  if (rank === 'user') {
-    return <Navigate to="/users/courses" />;
-  }
-
-  // Render nothing while the useEffect for logout is running
-  return null;
-}
-
 function App() {
   const { token, rank, loading } = useContext(AuthContext);
 
@@ -146,7 +124,25 @@ function App() {
         {/* Wildcard */}
         <Route
           path="*"
-          element={<WildcardRedirect />}
+          element={
+            (() => {
+              const { token, rank } = useContext(AuthContext);
+              
+              if (!token) {
+                return <Navigate to="/login" />;
+              }
+
+              if (rank === 'admin') {
+                return <Navigate to="/admin/courses" />;
+              }
+
+              if (rank === 'user') {
+                return <Navigate to="/users/courses" />;
+              }
+
+              return null;
+            })()
+          }
         />
       </Routes>
       
