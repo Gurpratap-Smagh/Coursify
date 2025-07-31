@@ -4,6 +4,15 @@ import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
+// Add axios interceptor to include token in headers for cross-origin requests
+axios.interceptors.request.use((config) => {
+  const token = Cookies.get('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [rank, setRank] = useState(null);
