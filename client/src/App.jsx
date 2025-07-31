@@ -42,7 +42,11 @@ export default function App() {
 
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   return (

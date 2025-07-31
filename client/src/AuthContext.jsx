@@ -14,8 +14,8 @@ axios.interceptors.request.use((config) => {
 });
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(null);
-  const [rank, setRank] = useState(null);
+  const [token, setToken] = useState(Cookies.get("token") || null);
+  const [rank, setRank] = useState(Cookies.get("rank") || null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
