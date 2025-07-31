@@ -47,6 +47,7 @@ export function AuthProvider({ children }) {
 
   const login = async (token, rank) => {
     Cookies.set("token", token, { secure: true, sameSite: 'strict' });
+    setToken(token);
     setRank(rank);
   };
 
