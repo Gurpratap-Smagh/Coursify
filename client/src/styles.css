@@ -1,6 +1,12 @@
 /* =============================
    Base Styles
 ============================= */
+html, body {
+  overscroll-behavior: none;
+  overscroll-behavior-y: none; /* locks vertical */
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
