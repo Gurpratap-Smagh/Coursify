@@ -21,19 +21,32 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     // ✅ Check both admin and user endpoints
     const checkAuth = async () => {
+      const existingToken = Cookies.get("token");
+      
+      // If no token exists, user is not logged in
+      if (!existingToken) {
+        setToken(null);
+        setRank(null);
+        setLoading(false);
+        return;
+      }
+      
       try {
         // Try user endpoint first
         const res = await axios.get("/users/me", { withCredentials: true });
-        setToken(res.data.token);
+        // Keep the existing token, just update rank from response
+        setToken(existingToken);
         setRank(res.data.rank);
       } catch (errUser) {
         try {
           // If user check fails, try admin endpoint
           const res = await axios.get("/admin/me", { withCredentials: true });
-          setToken(res.data.token);
+          // Keep the existing token, just update rank from response
+          setToken(existingToken);
           setRank(res.data.rank);
         } catch (errAdmin) {
-          // Neither endpoint worked → not logged in
+          // Neither endpoint worked → token is invalid, clear auth
+          Cookies.remove("token");
           setToken(null);
           setRank(null);
         }
