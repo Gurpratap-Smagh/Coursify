@@ -19,7 +19,7 @@ body {
    Navbar Styles
 ============================= */
 .navbar {
-  background: rgba(21, 21, 21, 0.9);
+  background: rgba(21, 21, 21, 0.2);
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
