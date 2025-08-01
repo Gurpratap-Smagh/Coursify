@@ -1,10 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthContext";
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const { token, rank, logout } = useContext(AuthContext);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
 
   const handleLogout = () => {
     logout();
@@ -24,7 +34,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar">
+    <nav className={scrolled ? "navbar navbar-scrolled" : "navbar"}>
       {/* Clickable CourseHub logo */}
       <h1>
         <Link to={getHomeLink()} style={{ textDecoration: "none", color: "inherit" }}>
