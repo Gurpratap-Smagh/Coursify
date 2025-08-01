@@ -12,21 +12,32 @@ export default function AllCourses() {
   const [adminId, setAdminId] = useState(null);
 
   useEffect(() => {
-    // Load all published courses
+    // Load all published courses - this should work for both authenticated and unauthenticated users
     axios
       .get("/users/courses", { withCredentials: true })
       .then((res) => setCourses(res.data))
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error("Error loading courses:", err);
+        // If the authenticated endpoint fails, try without credentials for unauthenticated users
+        if (!token) {
+          axios
+            .get("/users/courses")
+            .then((res) => setCourses(res.data))
+            .catch((err2) => console.error("Error loading courses (unauthenticated):", err2));
+        }
+      });
 
-    // Load purchased courses
-    axios
-      .get("/users/purchasedCourses", { withCredentials: true })
-      .then((res) => setPurchased(res.data))
-      .catch((err) => console.error(err));
+    // Only load purchased courses if user is authenticated
+    if (token) {
+      axios
+        .get("/users/purchasedCourses", { withCredentials: true })
+        .then((res) => setPurchased(res.data))
+        .catch((err) => console.error("Error loading purchased courses:", err));
 
-    if (rank === "admin" && token) {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      setAdminId(payload.id);
+      if (rank === "admin") {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        setAdminId(payload.id);
+      }
     }
   }, [rank, token]);
 

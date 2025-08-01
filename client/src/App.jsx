@@ -149,7 +149,9 @@ export default function App() {
         draggable
         pauseOnHover
       />
-
+      
+      {/* Subtle footer to prevent white flash */}
+      <div className="app-footer"></div>
     </BrowserRouter>
   );
 }
