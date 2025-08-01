@@ -15,14 +15,14 @@
 ### POST /admin/signup 
 **Description**: Creates a new admin account.  
 **Input**: 
-```json
+```json:
 { 
   "username": "admin", 
   "password": "pass" 
 }
 ```  
 **Output**: 
-```json
+```json:
 { 
   "message": "Admin created successfully", 
   "token": "jwt_token_here" 
