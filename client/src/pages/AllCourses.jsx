@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export default function AllCourses() {
   const [courses, setCourses] = useState([]);
   const [purchased, setPurchased] = useState([]);
-  const { token, rank } = useContext(AuthContext);
+  const { token, rank, loading } = useContext(AuthContext);
 
   const [adminId, setAdminId] = useState(null);
 
@@ -54,6 +54,15 @@ export default function AllCourses() {
       })
       .catch((err) => console.error(err));
   };
+
+  // Show loading state while AuthContext is checking authentication
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <p>Loading courses...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="course-grid">
