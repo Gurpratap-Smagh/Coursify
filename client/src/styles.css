@@ -19,6 +19,7 @@ body {
    Navbar Styles
 ============================= */
 .navbar {
+  position: fixed;
   background: rgba(21, 21, 21, 0.2);
   backdrop-filter: blur(10px);
   display: flex;
