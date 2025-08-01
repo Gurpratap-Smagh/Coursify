@@ -54,14 +54,17 @@ export default function AllCourses() {
         let showEdit = false;
         let showBuy = false;
 
-        if (rank === "admin") {
-          if (c.creatorId === adminId) {
-            showEdit = true;
+        // Only show buy/edit options if user is authenticated
+        if (token) {
+          if (rank === "admin") {
+            if (c.creatorId === adminId) {
+              showEdit = true;
+            } else {
+              showBuy = !alreadyBought;
+            }
           } else {
             showBuy = !alreadyBought;
           }
-        } else {
-          showBuy = !alreadyBought;
         }
 
         return (

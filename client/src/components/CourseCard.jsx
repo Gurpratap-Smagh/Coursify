@@ -25,32 +25,40 @@ export default function CourseCard({
       {safeLink ? (
         <a href={safeLink} target="_blank" rel="noopener noreferrer">
           <img src={safeImage} alt={course.title} />
-          <h3>{course.title}</h3>
         </a>
       ) : (
-        <>
-          <img src={safeImage} alt={course.title} />
+        <img src={safeImage} alt={course.title} />
+      )}
+      
+      <div className="course-card-content">
+        {safeLink ? (
+          <a href={safeLink} target="_blank" rel="noopener noreferrer">
+            <h3>{course.title}</h3>
+          </a>
+        ) : (
           <h3>{course.title}</h3>
-        </>
-      )}
+        )}
+        
+        <p>{course.description?.slice(0, 100)}...</p>
+      </div>
 
-      <p>{course.description?.slice(0, 50)}...</p>
+      <div className="course-card-actions">
+        {showEdit && (
+          <Link to={`/admin/courses/edit/${course.title}`}>
+            Edit Course
+          </Link>
+        )}
 
-      {showEdit && (
-        <Link to={`/admin/courses/edit/${course.title}`}>
-          Edit
-        </Link>
-      )}
+        {showBuy && (
+          <button onClick={onBuy}>Buy Course</button>
+        )}
 
-      {showBuy && (
-        <button onClick={onBuy}>Buy</button>
-      )}
-
-      {!showBuy && !showEdit && alreadyBought && (
-        <p className="test-success">
-          Purchased!
-        </p>
-      )}
+        {!showBuy && !showEdit && alreadyBought && (
+          <span className="purchased-badge">
+            ✓ Purchased
+          </span>
+        )}
+      </div>
     </div>
   );
 }

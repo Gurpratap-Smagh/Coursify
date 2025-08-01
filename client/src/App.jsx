@@ -50,7 +50,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {token && <Navbar role={rank} />}
+      <Navbar />
 
       <Routes>
         {/* Public pages */}
@@ -95,16 +95,10 @@ export default function App() {
           }
         />
 
-        {/* User pages (protected) */}
+        {/* User pages */}
         <Route
           path="/users/courses"
-          element={
-            token && (rank === "user" || rank === "admin") ? (
-              <AllCourses />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={<AllCourses />}
         />
         <Route
           path="/users/purchased"
