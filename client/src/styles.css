@@ -172,6 +172,20 @@ body {
 }
 
 /* =============================
+   Footer
+============================= */
+.app-footer {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  margin: 0 auto;
+  max-width: 1400px;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* =============================
    Course Cards
 ============================= */
 .course-card {

@@ -121,7 +121,23 @@ export default function App() {
           }
         />
 
-        {/* Wildcard */}
+        {/* Home route */}
+        <Route
+          path="/"
+          element={
+            token ? (
+              rank === "admin" ? (
+                <Navigate to="/admin/courses" />
+              ) : (
+                <Navigate to="/users/courses" />
+              )
+            ) : (
+              <Navigate to="/users/courses" />
+            )
+          }
+        />
+
+        {/* Wildcard - only for truly invalid routes */}
         <Route
           path="*"
           element={
@@ -132,7 +148,7 @@ export default function App() {
                 <Navigate to="/users/courses" />
               )
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/users/courses" />
             )
           }
         />
