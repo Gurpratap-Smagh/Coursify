@@ -28,10 +28,12 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
   transition: all 0.3s ease-in-out;
+  left: 0;
+  right: 0
 }
 
 .main-content {

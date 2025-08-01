@@ -51,108 +51,107 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
-
       <div className="main-content">
         <Routes>
-        {/* Public pages */}
-        <Route
-          path="/login"
-          element={!token ? <Login /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
-        />
-        <Route
-          path="/signup"
-          element={!token ? <Register /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
-        />
+          {/* Public pages */}
+          <Route
+            path="/login"
+            element={!token ? <Login /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
+          />
+          <Route
+            path="/signup"
+            element={!token ? <Register /> : <Navigate to={rank === 'admin' ? '/admin/courses' : '/users/courses'} />}
+          />
 
-        {/* Admin pages (protected) */}
-        <Route
-          path="/admin/courses"
-          element={
-            token && rank === "admin" ? (
-              <AdminCourses />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/admin/courses/create"
-          element={
-            token && rank === "admin" ? (
-              <CreateCourse />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/admin/courses/edit/:title"
-          element={
-            token && rank === "admin" ? (
-              <EditCourse />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
+          {/* Admin pages (protected) */}
+          <Route
+            path="/admin/courses"
+            element={
+              token && rank === "admin" ? (
+                <AdminCourses />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/admin/courses/create"
+            element={
+              token && rank === "admin" ? (
+                <CreateCourse />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/admin/courses/edit/:title"
+            element={
+              token && rank === "admin" ? (
+                <EditCourse />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
 
-        {/* User pages */}
-        <Route
-          path="/users/courses"
-          element={<AllCourses />}
-        />
-        <Route
-          path="/users/purchased"
-          element={
-            token && (rank === "user" || rank === "admin") ? (
-              <PurchasedCourses />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/users/courses/:title"
-          element={
-            token && (rank === "user" || rank === "admin") ? (
-              <CourseDetails />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
+          {/* User pages */}
+          <Route
+            path="/users/courses"
+            element={<AllCourses />}
+          />
+          <Route
+            path="/users/purchased"
+            element={
+              token && (rank === "user" || rank === "admin") ? (
+                <PurchasedCourses />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/users/courses/:title"
+            element={
+              token && (rank === "user" || rank === "admin") ? (
+                <CourseDetails />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
 
-        {/* Home route */}
-        <Route
-          path="/"
-          element={
-            token ? (
-              rank === "admin" ? (
-                <Navigate to="/admin/courses" />
+          {/* Home route */}
+          <Route
+            path="/"
+            element={
+              token ? (
+                rank === "admin" ? (
+                  <Navigate to="/admin/courses" />
+                ) : (
+                  <Navigate to="/users/courses" />
+                )
               ) : (
                 <Navigate to="/users/courses" />
               )
-            ) : (
-              <Navigate to="/users/courses" />
-            )
-          }
-        />
+            }
+          />
 
-        {/* Wildcard - only for truly invalid routes */}
-        <Route
-          path="*"
-          element={
-            token ? (
-              rank === "admin" ? (
-                <Navigate to="/admin/courses" />
+          {/* Wildcard - only for truly invalid routes */}
+          <Route
+            path="*"
+            element={
+              token ? (
+                rank === "admin" ? (
+                  <Navigate to="/admin/courses" />
+                ) : (
+                  <Navigate to="/users/courses" />
+                )
               ) : (
                 <Navigate to="/users/courses" />
               )
-            ) : (
-              <Navigate to="/users/courses" />
-            )
-          }
-        />
+            }
+          />
         </Routes>
       </div>
       
