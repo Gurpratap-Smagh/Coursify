@@ -21,19 +21,30 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     // ✅ Check both admin and user endpoints
     const checkAuth = async () => {
+      const cookieToken = Cookies.get("token");
+      
+      if (!cookieToken) {
+        // No token in cookies, user is not logged in
+        setToken(null);
+        setRank(null);
+        setLoading(false);
+        return;
+      }
+      
       try {
         // Try user endpoint first
         const res = await axios.get("/users/me", { withCredentials: true });
-        setToken(res.data.token);
-        setRank(res.data.rank);
+        setToken(cookieToken); // Use token from cookie
+        setRank(res.data.rank); // Use rank from API response
       } catch (errUser) {
         try {
           // If user check fails, try admin endpoint
           const res = await axios.get("/admin/me", { withCredentials: true });
-          setToken(res.data.token);
-          setRank(res.data.rank);
+          setToken(cookieToken); // Use token from cookie
+          setRank(res.data.rank); // Use rank from API response
         } catch (errAdmin) {
-          // Neither endpoint worked → not logged in
+          // Neither endpoint worked → not logged in or token expired
+          Cookies.remove("token"); // Clean up invalid token
           setToken(null);
           setRank(null);
         }
