@@ -52,7 +52,8 @@ export default function App() {
     <BrowserRouter>
       <Navbar />
 
-      <Routes>
+      <div className="main-content">
+        <Routes>
         {/* Public pages */}
         <Route
           path="/login"
@@ -152,7 +153,8 @@ export default function App() {
             )
           }
         />
-      </Routes>
+        </Routes>
+      </div>
       
       <ToastContainer
         position="top-center"

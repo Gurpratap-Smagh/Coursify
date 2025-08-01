@@ -11,7 +11,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   color: #e0e0e0;
-  background: #fefcfc;
+  background: #0b0b0b;
   transition: background 0.3s ease;
 }
 
@@ -28,12 +28,14 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 1000;
   transition: all 0.3s ease-in-out;
+}
+
+.main-content {
+  padding-top: 80px; /* Adjust this value based on the navbar's height */
 }
 .navbar-scrolled {
   transform: scale(0.75);
