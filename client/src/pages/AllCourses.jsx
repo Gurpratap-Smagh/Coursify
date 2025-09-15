@@ -12,22 +12,16 @@ export default function AllCourses() {
   const [adminId, setAdminId] = useState(null);
 
   useEffect(() => {
-    // Load all published courses - this should work for both authenticated and unauthenticated users
+    // 1. Everyone gets the public list of courses from the new endpoint
     axios
-      .get("/users/courses", { withCredentials: true })
+      .get("/courses") 
       .then((res) => setCourses(res.data))
       .catch((err) => {
         console.error("Error loading courses:", err);
-        // If the authenticated endpoint fails, try without credentials for unauthenticated users
-        if (!token) {
-          axios
-            .get("/courses")
-            .then((res) => setCourses(res.data))
-            .catch((err2) => console.error("Error loading courses (unauthenticated):", err2));
-        }
+        toast.error("Could not load courses.");
       });
 
-    // Only load purchased courses if user is authenticated
+    // 2. If the user is logged in, separately get their private data
     if (token) {
       axios
         .get("/users/purchasedCourses", { withCredentials: true })
