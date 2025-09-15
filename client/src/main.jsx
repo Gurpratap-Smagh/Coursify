@@ -9,7 +9,7 @@ import { AuthProvider } from './AuthContext.jsx';
 // In production, this will use the full URL from the environment variable
 const baseURL = import.meta.env.DEV 
   ? '/api' 
-  : import.meta.env.VITE_API_BASE_URL || 'https://web-production-254279.up.railway.app';
+  : import.meta.env.VITE_API_BASE_URL || 'https://coursify-api-32232219672.northamerica-northeast2.run.app';
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
