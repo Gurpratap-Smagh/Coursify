@@ -21,7 +21,7 @@ export default function AllCourses() {
         // If the authenticated endpoint fails, try without credentials for unauthenticated users
         if (!token) {
           axios
-            .get("/users/courses")
+            .get("/courses")
             .then((res) => setCourses(res.data))
             .catch((err2) => console.error("Error loading courses (unauthenticated):", err2));
         }
