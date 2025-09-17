@@ -4,7 +4,7 @@
 - if you are **not** familiar with **React**, pick `client-easy`.
 - if you are familiar with **React**, pick `client`.
 
-**visit at**: you can try cloning the UI of **https://coursify-psi.vercel.app/**.
+**visit at**: **https://coursify-psi.vercel.app/**.
 # Backend
 
 # Admin Routes Structure
